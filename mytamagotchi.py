@@ -7,8 +7,11 @@ import glob
 pygame.init()
 
 #música do jogo
-pygame.mixer.music.load("undertale_ost_shop.wav")
+pygame.mixer.music.load("sons/undertale_ost_shop.wav")
 pygame.mixer.music.set_volume(0.02)
+
+#fonte do jogo
+FONTEJOGO = 'fontes/Organic_Brand.ttf'
 
 #tela
 display_width = 800
@@ -32,61 +35,65 @@ bright_pink = (255,222,229)
 bright_yellow = (251,255,201)
 
 #imagens do tamagotchi
-tamagotchi_morto = pygame.image.load('tamagotchi_morto.png')
-tamagotchi_oi = pygame.image.load('tamagotchi_oi.png')
-tamagotchi_feliz = pygame.image.load('tamagotchi_feliz.png')
+tamagotchi_morto = pygame.image.load('imagens/tamagotchi/tamagotchi_morto.png')
+tamagotchi_oi = pygame.image.load('imagens/tamagotchi/tamagotchi_oi.png')
+tamagotchi_feliz = pygame.image.load('imagens/tamagotchi/tamagotchi_feliz.png')
     
 #frames
-frame_dia = pygame.image.load('frame_dia.png')
-frame_noite_dentro = pygame.image.load('frame_noite_dentro.png')
-frame_banho = pygame.image.load('frame_banho.png')
+frame_dia = pygame.image.load('imagens/frames/frame_dia.png')
+frame_noite = pygame.image.load('imagens/frames/frame_noite.png')
+frame_noite_dentro = pygame.image.load('imagens/frames/frame_noite_dentro.png')
+frame_banho = pygame.image.load('imagens/frames/frame_banho.png')
 
 #icone
-icon = pygame.image.load('icon_tamagotchi.png')
+icon = pygame.image.load('imagens/icon_tamagotchi.png')
 pygame.display.set_icon(icon)
 
 #sons
-som_comendo = pygame.mixer.Sound("som_comendo.wav")
-som_chuveiro = pygame.mixer.Sound("WaterSprayer.wav")
-som_curar = pygame.mixer.Sound("pokemon_healing_sound_effect.wav")
-som_dormindo = pygame.mixer.Sound("som_dormindo.wav")
-som_morrendo = pygame.mixer.Sound("som_morrendo.wav")
-eterna_forest = pygame.mixer.Sound("eterna_forest.wav")
-musica_quase_morrendo = pygame.mixer.Sound("undertale_ost_075_barrier.wav")
-musica_morreu = pygame.mixer.Sound("undertale_ost_078_you_idiot.wav")
+som_comendo = pygame.mixer.Sound("sons/som_comendo.wav")
+som_chuveiro = pygame.mixer.Sound("sons/WaterSprayer.wav")
+som_curar = pygame.mixer.Sound("sons/pokemon_healing_sound_effect.wav")
+som_dormindo = pygame.mixer.Sound("sons/som_dormindo.wav")
+som_morrendo = pygame.mixer.Sound("sons/som_morrendo.wav")
+eterna_forest = pygame.mixer.Sound("sons/eterna_forest.wav")
+musica_quase_morrendo = pygame.mixer.Sound("sons/undertale_ost_075_barrier.wav")
+musica_morreu = pygame.mixer.Sound("sons/undertale_ost_078_you_idiot.wav")
 
 #botões
-botao_sair = pygame.image.load('botao_sair.png')
-botao_sair2 = pygame.image.load('botao_sair2.png')
-botao_remedio = pygame.image.load('botao_remedio.png')
-botao_remedio2 = pygame.image.load('botao_remedio2.png')
-botao_bolo = pygame.image.load('botao_bolo.png')
-botao_bolo2 = pygame.image.load('botao_bolo2.png')
-botao_frango = pygame.image.load('botao_frango.png')
-botao_frango2 = pygame.image.load('botao_frango2.png')
-botao_chuveiro = pygame.image.load('botao_chuveiro.png')
-botao_chuveiro2 = pygame.image.load('botao_chuveiro2.png')
-botao_dormir = pygame.image.load('botao_dormir.png')
-botao_dormir2 = pygame.image.load('botao_dormir2.png')
+botao_sair = pygame.image.load('imagens/botoes/botao_sair.png')
+botao_sair2 = pygame.image.load('imagens/botoes/botao_sair2.png')
+botao_remedio = pygame.image.load('imagens/botoes/botao_remedio.png')
+botao_remedio2 = pygame.image.load('imagens/botoes/botao_remedio2.png')
+botao_bolo = pygame.image.load('imagens/botoes/botao_bolo.png')
+botao_bolo2 = pygame.image.load('imagens/botoes/botao_bolo2.png')
+botao_frango = pygame.image.load('imagens/botoes/botao_frango.png')
+botao_frango2 = pygame.image.load('imagens/botoes/botao_frango2.png')
+botao_chuveiro = pygame.image.load('imagens/botoes/botao_chuveiro.png')
+botao_chuveiro2 = pygame.image.load('imagens/botoes/botao_chuveiro2.png')
+botao_dormir = pygame.image.load('imagens/botoes/botao_dormir.png')
+botao_dormir2 = pygame.image.load('imagens/botoes/botao_dormir2.png')
 
 #balões, fedor e cocô
-balao_bolo = pygame.image.load('balao_bolo.png')
-balao_frango = pygame.image.load('balao_frango.png')
-coco = pygame.image.load('coco.png')
-fedor = pygame.image.load('fedor.png')
+balao_bolo = pygame.image.load('imagens/balao_bolo.png')
+balao_frango = pygame.image.load('imagens/balao_frango.png')
+coco = pygame.image.load('imagens/coco.png')
+fedor = pygame.image.load('imagens/fedor.png')
 
 #timers
 TIMERFOME = pygame.USEREVENT
 pygame.time.set_timer(TIMERFOME, 1000)
+TIMERCOMENDO = 6
 
 TIMERSONO = pygame.USEREVENT
 pygame.time.set_timer(TIMERSONO, 1000)
+TIMERDORMINDO = 15
 
 TIMERSUJO = pygame.USEREVENT
 pygame.time.set_timer(TIMERSUJO, 1000)
 
 TIMERDOENTE = pygame.USEREVENT
 pygame.time.set_timer(TIMERDOENTE, 1000)
+TIMERREMEDIO = 10
 
 TIMERPERIODODIA = pygame.USEREVENT
 pygame.time.set_timer(TIMERPERIODODIA, 1000)
@@ -94,18 +101,18 @@ pygame.time.set_timer(TIMERPERIODODIA, 1000)
 class Tamagotchi(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         super().__init__()
-        self.spritesNormal = [pygame.image.load('tamagotchi_normal.png'), pygame.image.load('tamagotchi_normal2.png')]
-        self.spritesSono = [pygame.image.load('tamagotchi_sono0.png'), pygame.image.load('tamagotchi_sono1.png'), pygame.image.load('tamagotchi_sono2.png'), pygame.image.load('tamagotchi_sono3.png'), pygame.image.load('tamagotchi_sono4.png'), pygame.image.load('tamagotchi_sono5.png'), pygame.image.load('tamagotchi_sono6.png'), pygame.image.load('tamagotchi_sono7.png'), pygame.image.load('tamagotchi_sono8.png')]
-        self.spritesFome = [pygame.image.load('tamagotchi_fome.png'), pygame.image.load('tamagotchi_fome2.png')]
-        self.spritesMorrendo = [pygame.image.load('tamagotchi_morrendo0.png'), pygame.image.load('tamagotchi_morrendo1.png'), pygame.image.load('tamagotchi_morrendo2.png'), pygame.image.load('tamagotchi_morrendo3.png'), pygame.image.load('tamagotchi_morrendo4.png'), pygame.image.load('tamagotchi_morrendo5.png'), pygame.image.load('tamagotchi_morrendo6.png'), pygame.image.load('tamagotchi_morrendo7.png'), pygame.image.load('tamagotchi_morrendo8.png'), pygame.image.load('tamagotchi_morrendo9.png')]
-        self.spritesFomeSono = [pygame.image.load('tamagotchi_fome_sono0.png'), pygame.image.load('tamagotchi_fome_sono1.png'), pygame.image.load('tamagotchi_fome_sono2.png'), pygame.image.load('tamagotchi_fome_sono3.png'), pygame.image.load('tamagotchi_fome_sono4.png'), pygame.image.load('tamagotchi_fome_sono5.png'), pygame.image.load('tamagotchi_fome_sono6.png'), pygame.image.load('tamagotchi_fome_sono7.png')]
-        self.spritesFomeDoenca = [pygame.image.load('tamagotchi_fome_doenca0.png'), pygame.image.load('tamagotchi_fome_doenca1.png'), pygame.image.load('tamagotchi_fome_doenca2.png'), pygame.image.load('tamagotchi_fome_doenca3.png')]
-        self.spritesFeliz = [pygame.image.load('tamagotchi_feliz.png'), pygame.image.load('tamagotchi_feliz2.png')]
-        self.spritesDormindo = [pygame.image.load('tamagotchi_dormindo2.png'), pygame.image.load('tamagotchi_dormindo2.png'),pygame.image.load('tamagotchi_dormindo2.png'), pygame.image.load('tamagotchi_dormindo2.png'), pygame.image.load('tamagotchi_dormindo.png'), pygame.image.load('tamagotchi_dormindo.png')]
-        self.spritesDoenca = [pygame.image.load('tamagotchi_doenca.png'), pygame.image.load('tamagotchi_doenca2.png')]
-        self.spritesDoencaSono = [pygame.image.load('tamagotchi_doenca_sono0.png'), pygame.image.load('tamagotchi_doenca_sono1.png'), pygame.image.load('tamagotchi_doenca_sono2.png'), pygame.image.load('tamagotchi_doenca_sono3.png'), pygame.image.load('tamagotchi_doenca_sono4.png'), pygame.image.load('tamagotchi_doenca_sono5.png'), pygame.image.load('tamagotchi_doenca_sono6.png'), pygame.image.load('tamagotchi_doenca_sono7.png'), pygame.image.load('tamagotchi_doenca_sono8.png'), pygame.image.load('tamagotchi_doenca_sono9.png')]
-        self.spritesComendoGostou = [pygame.image.load('tamagotchi_comendo_gostou.png'), pygame.image.load('tamagotchi_comendo_gostou2.png')]
-        self.spritesComendoNaoGostou = [pygame.image.load('tamagotchi_comendo_naogostou.png'), pygame.image.load('tamagotchi_comendo_naogostou2.png')]
+        self.spritesNormal = [pygame.image.load('imagens/tamagotchi/tamagotchi_normal.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_normal2.png')]
+        self.spritesSono = [pygame.image.load('imagens/tamagotchi/tamagotchi_sono0.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_sono1.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_sono2.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_sono3.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_sono4.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_sono5.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_sono6.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_sono7.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_sono8.png')]
+        self.spritesFome = [pygame.image.load('imagens/tamagotchi/tamagotchi_fome.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome2.png')]
+        self.spritesMorrendo = [pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo0.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo1.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo2.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo3.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo4.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo5.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo6.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo7.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo8.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_morrendo9.png')]
+        self.spritesFomeSono = [pygame.image.load('imagens/tamagotchi/tamagotchi_fome_sono0.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_sono1.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_sono2.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_sono3.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_sono4.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_sono5.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_sono6.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_sono7.png')]
+        self.spritesFomeDoenca = [pygame.image.load('imagens/tamagotchi/tamagotchi_fome_doenca0.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_doenca1.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_doenca2.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_fome_doenca3.png')]
+        self.spritesFeliz = [pygame.image.load('imagens/tamagotchi/tamagotchi_feliz.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_feliz2.png')]
+        self.spritesDormindo = [pygame.image.load('imagens/tamagotchi/tamagotchi_dormindo2.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_dormindo2.png'),pygame.image.load('imagens/tamagotchi/tamagotchi_dormindo2.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_dormindo2.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_dormindo.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_dormindo.png')]
+        self.spritesDoenca = [pygame.image.load('imagens/tamagotchi/tamagotchi_doenca.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca2.png')]
+        self.spritesDoencaSono = [pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono0.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono1.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono2.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono3.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono4.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono5.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono6.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono7.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono8.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_doenca_sono9.png')]
+        self.spritesComendoGostou = [pygame.image.load('imagens/tamagotchi/tamagotchi_comendo_gostou.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_comendo_gostou2.png')]
+        self.spritesComendoNaoGostou = [pygame.image.load('imagens/tamagotchi/tamagotchi_comendo_naogostou.png'), pygame.image.load('imagens/tamagotchi/tamagotchi_comendo_naogostou2.png')]
         
         self.current_sprite = 0
         self.image = self.spritesNormal[self.current_sprite]
@@ -195,7 +202,7 @@ moving_sprites.add(tamagotchi)
 class Nuvem(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         super().__init__()
-        self.spritesNuvem = [pygame.image.load('frame_dia.png'), pygame.image.load('frame_dia_nuvem0.png'), pygame.image.load('frame_dia_nuvem2.png'), pygame.image.load('frame_dia_nuvem3.png'), pygame.image.load('frame_dia_nuvem4.png'), pygame.image.load('frame_dia_nuvem5.png'), pygame.image.load('frame_dia_nuvem6.png'), pygame.image.load('frame_dia_nuvem7.png'), pygame.image.load('frame_dia_nuvem8.png'), pygame.image.load('frame_dia_nuvem9.png')]
+        self.spritesNuvem = [pygame.image.load('imagens/frames/frame_dia.png'), pygame.image.load('imagens/frames/frame_dia_nuvem0.png'), pygame.image.load('imagens/frames/frame_dia_nuvem2.png'), pygame.image.load('imagens/frames/frame_dia_nuvem3.png'), pygame.image.load('imagens/frames/frame_dia_nuvem4.png'), pygame.image.load('imagens/frames/frame_dia_nuvem5.png'), pygame.image.load('imagens/frames/frame_dia_nuvem6.png'), pygame.image.load('imagens/frames/frame_dia_nuvem7.png'), pygame.image.load('imagens/frames/frame_dia_nuvem8.png'), pygame.image.load('imagens/frames/frame_dia_nuvem9.png')]
 
         self.current_sprite = 0
         self.image = self.spritesNuvem[self.current_sprite]
@@ -258,12 +265,12 @@ def game_intro():
                 quit()
 
         gameDisplay.fill(white)
-        largeText = pygame.font.Font('Organic_Brand.ttf', 100)
+        largeText = pygame.font.Font(FONTEJOGO, 100)
         TextSurf, TextRect = text_objects("Muriel,", largeText)
         TextRect.center = ((display_width/2), (15*display_height/20))
         gameDisplay.blit(TextSurf, TextRect)
 
-        largeText = pygame.font.Font('Organic_Brand.ttf', 70)
+        largeText = pygame.font.Font(FONTEJOGO, 70)
         TextSurf, TextRect = text_objects("a Tamagotchi", largeText)
         TextRect.center = ((display_width/2), (9*display_height/10))
         gameDisplay.blit(TextSurf, TextRect)
@@ -285,7 +292,7 @@ def murielMorreu():
     pygame.mixer.Sound.fadeout(musica_morreu,5000)
     
     gameDisplay.fill(ciano)
-    largeText = pygame.font.Font('Organic_Brand.ttf', 80)
+    largeText = pygame.font.Font(FONTEJOGO, 80)
     TextSurf, TextRect = text_objects("A Muriel morreu...", largeText)
     TextRect.center = ((display_width/2), (3*display_height/4))
     gameDisplay.blit(TextSurf, TextRect)
@@ -315,12 +322,12 @@ def sair():
     pygame.mixer.Sound.fadeout(musica_quase_morrendo, 3000)
 
     gameDisplay.fill(white)
-    largeText = pygame.font.Font('Organic_Brand.ttf', 100)
+    largeText = pygame.font.Font(FONTEJOGO, 100)
     TextSurf, TextRect = text_objects("Voce escolheu", largeText)
     TextRect.center = ((display_width/2), (15*display_height/20))
     gameDisplay.blit(TextSurf, TextRect)
 
-    largeText = pygame.font.Font('Organic_Brand.ttf', 70)
+    largeText = pygame.font.Font(FONTEJOGO, 70)
     TextSurf, TextRect = text_objects("matar a Muriel.", largeText)
     TextRect.center = ((display_width/2), (9*display_height/10))
     gameDisplay.blit(TextSurf, TextRect)
@@ -346,12 +353,12 @@ def venceu():
                 quit()
 
         gameDisplay.fill(white)
-        largeText = pygame.font.Font('Organic_Brand.ttf', 70)
+        largeText = pygame.font.Font(FONTEJOGO, 70)
         TextSurf, TextRect = text_objects("Voce cuidou da Muriel", largeText)
         TextRect.center = ((display_width/2), (15*display_height/20))
         gameDisplay.blit(TextSurf, TextRect)
 
-        largeText = pygame.font.Font('Organic_Brand.ttf', 70)
+        largeText = pygame.font.Font(FONTEJOGO, 70)
         TextSurf, TextRect = text_objects("enquanto ela precisava!", largeText)
         TextRect.center = ((display_width/2), (9*display_height/10))
         gameDisplay.blit(TextSurf, TextRect)
@@ -389,7 +396,7 @@ def comer(gostou, vontade_coco, sujo, quantos_dias, periodo_dia):
                 contadortempo += 1
                 periodo_dia += 1
 
-                if contadortempo == 3:
+                if contadortempo == TIMERCOMENDO:
                     tempo = False
                 
         if gostou:
@@ -448,7 +455,7 @@ def esta_dormindo(vontade_coco, sujo, quantos_dias, periodo_dia):
                 contadortempo += 1
                 periodo_dia += 1
 
-                if contadortempo == 6:
+                if contadortempo == TIMERDORMINDO:
                     tempo = False
                 
         moving_sprites.update(10)
@@ -515,7 +522,7 @@ def tomar_remedio(vontade_coco, sujo, quantos_dias, periodo_dia):
                 contadortempo += 1
                 periodo_dia += 1
 
-                if contadortempo == 4:
+                if contadortempo == TIMERREMEDIO:
                     tempo = False
 
         moving_sprites.update(12)
@@ -628,14 +635,14 @@ def mostrar_fedor():
 
 #mostrar dias
 def mostrardias(quantos_dias):
-    largeText = pygame.font.Font('Organic_Brand.ttf', 20)
+    largeText = pygame.font.Font(FONTEJOGO, 20)
     TextSurf = largeText.render("Dias de vida:", True, white)
     TextRect = TextSurf.get_rect()
     TextRect.center = (200), (20)
     gameDisplay.blit(TextSurf, TextRect)
 
     quantos_dias = str(quantos_dias)
-    largeText = pygame.font.Font('Organic_Brand.ttf', 20)
+    largeText = pygame.font.Font(FONTEJOGO, 20)
     TextSurf = largeText.render(quantos_dias, True, white)
     TextRect = TextSurf.get_rect()
     TextRect.center = (275), (20)
